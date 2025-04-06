@@ -149,14 +149,14 @@ class SearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(homeTeam: String, awayTeam: String, homeTeamImage: String, awayTeamImage: String, time: String, date: String, stadium: String, city: String) {
+    func configure(homeTeam: String) {
         homeCommandTitle.text = homeTeam
-        awayCommandTitle.text = awayTeam
-        homeCommandImageView.image = UIImage(named: homeTeamImage)
-        awayCommandImageView.image = UIImage(named: awayTeamImage)
-        timeLabel.text = time
-        dateLabel.text = date
-        stadiumLabel.text = "\(stadium), \(city)"
+//        awayCommandTitle.text = awayTeam
+//        homeCommandImageView.image = UIImage(named: homeTeamImage)
+//        awayCommandImageView.image = UIImage(named: awayTeamImage)
+//        timeLabel.text = time
+//        dateLabel.text = date
+//        stadiumLabel.text = "\(stadium), \(city)"
     }
 
 }

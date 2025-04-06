@@ -2,9 +2,35 @@ import UIKit
 
 class SearchScreenVC: UIViewController {
     
+    private var searchResults: [Result] = []
+    private var searchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        
+        
+        
+    }
+    
+    private func performSearch(query: String) {
+        guard !query.isEmpty else {
+            searchResults = []
+            searchResultTable.reloadData()
+            return
+        }
+        
+        MovieService.shared.searchMovies(query: query) { [weak self ] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let movies):
+                    self?.searchResults = movies
+                    self?.searchResultTable.reloadData()
+                case .failure(let error):
+                    print("❌ Ошибка: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     private let filtersButton: UIButton = {
@@ -12,7 +38,7 @@ class SearchScreenVC: UIViewController {
         //Change backgroundColor
         filtersButton.backgroundColor = .green
         filtersButton.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
-        filtersButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        filtersButton.layer.shadowColor = UIColor.black.cgColor
         filtersButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         filtersButton.layer.shadowOpacity = 1.0
         filtersButton.layer.shadowRadius = 0.0
@@ -37,13 +63,14 @@ class SearchScreenVC: UIViewController {
         view.backgroundColor = .white
         view.addSubview(searchResultTable)
         
-        let searchController = UISearchController(searchResultsController: nil)
+        searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Поиск..."
+        searchController.searchResultsUpdater = self
         
-        navigationItem.titleView = searchController.searchBar
+        navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false // Оставляет строку видимой при скролле
-
+        
         let rightItem = UIBarButtonItem(customView: filtersButton)
         navigationItem.rightBarButtonItem = rightItem
         
@@ -65,14 +92,25 @@ class SearchScreenVC: UIViewController {
     }
 }
 
+extension SearchScreenVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let query = searchController.searchBar.text ?? ""
+        performSearch(query: query)
+    }
+}
+
 extension SearchScreenVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchTableViewCell
+        let movie = searchResults[indexPath.row]
+        
         cell.backgroundColor = .clear
+        cell.configure(homeTeam: movie.title)
+        
         //cell.configure(homeTeam: "Real Madrid", awayTeam: "Barselona", homeTeamImage: "real", awayTeamImage: "barsa", time: "19:00", date: "23.03", stadium: "Estadio Nacional de Fútbol", city: "Managua")
         
         return cell
@@ -82,7 +120,7 @@ extension SearchScreenVC: UITableViewDelegate, UITableViewDataSource {
         
         
         let toFavorite = UIContextualAction(style: .destructive, title: "") { (_, _, completionHandler) in
-            print("Удаление элемента \(indexPath.row)")
+            print("Добавление в избранное \(indexPath.row)")
             completionHandler(true)
         }
         toFavorite.backgroundColor = .white
