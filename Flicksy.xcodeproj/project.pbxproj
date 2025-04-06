@@ -12,7 +12,7 @@
 		F8B699B72DA17DC900D105F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699B62DA17DC900D105F9 /* ViewController.swift */; };
 		F8B699BC2DA17DCB00D105F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8B699BB2DA17DCB00D105F9 /* Assets.xcassets */; };
 		F8B699BF2DA17DCB00D105F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B699BD2DA17DCB00D105F9 /* LaunchScreen.storyboard */; };
-		F8B699C72DA18B8C00D105F9 /* filmDetailsScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699C62DA18B8C00D105F9 /* filmDetailsScreenVC.swift */; };
+		F8B699C72DA18B8C00D105F9 /* FilmDetailsScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699C62DA18B8C00D105F9 /* FilmDetailsScreenVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		F8B699BB2DA17DCB00D105F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8B699BE2DA17DCB00D105F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8B699C02DA17DCB00D105F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8B699C62DA18B8C00D105F9 /* filmDetailsScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = filmDetailsScreenVC.swift; sourceTree = "<group>"; };
+		F8B699C62DA18B8C00D105F9 /* FilmDetailsScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailsScreenVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 				F8B699BB2DA17DCB00D105F9 /* Assets.xcassets */,
 				F8B699BD2DA17DCB00D105F9 /* LaunchScreen.storyboard */,
 				F8B699C02DA17DCB00D105F9 /* Info.plist */,
-				F8B699C62DA18B8C00D105F9 /* filmDetailsScreenVC.swift */,
+				F8B699C62DA18B8C00D105F9 /* FilmDetailsScreenVC.swift */,
 			);
 			path = Flicksy;
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 				F8B699B72DA17DC900D105F9 /* ViewController.swift in Sources */,
 				F8B699B32DA17DC900D105F9 /* AppDelegate.swift in Sources */,
 				F8B699B52DA17DC900D105F9 /* SceneDelegate.swift in Sources */,
-				F8B699C72DA18B8C00D105F9 /* filmDetailsScreenVC.swift in Sources */,
+				F8B699C72DA18B8C00D105F9 /* FilmDetailsScreenVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
