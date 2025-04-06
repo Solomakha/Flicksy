@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F80ACA2D2DA29F39004B1033 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ACA2C2DA29F39004B1033 /* TabBarController.swift */; };
+		F80ACA2F2DA29FA2004B1033 /* MainScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ACA2E2DA29FA2004B1033 /* MainScreenVC.swift */; };
+		F80ACA312DA29FB3004B1033 /* SearchScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ACA302DA29FB3004B1033 /* SearchScreenVC.swift */; };
+		F80ACA332DA29FD0004B1033 /* ProfileScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ACA322DA29FD0004B1033 /* ProfileScreenVC.swift */; };
 		F8B699B32DA17DC900D105F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699B22DA17DC900D105F9 /* AppDelegate.swift */; };
 		F8B699B52DA17DC900D105F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699B42DA17DC900D105F9 /* SceneDelegate.swift */; };
 		F8B699B72DA17DC900D105F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699B62DA17DC900D105F9 /* ViewController.swift */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F80ACA2C2DA29F39004B1033 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		F80ACA2E2DA29FA2004B1033 /* MainScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVC.swift; sourceTree = "<group>"; };
+		F80ACA302DA29FB3004B1033 /* SearchScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenVC.swift; sourceTree = "<group>"; };
+		F80ACA322DA29FD0004B1033 /* ProfileScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenVC.swift; sourceTree = "<group>"; };
 		F8B699AF2DA17DC900D105F9 /* Flicksy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicksy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B699B22DA17DC900D105F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8B699B42DA17DC900D105F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +68,10 @@
 				F8B699BB2DA17DCB00D105F9 /* Assets.xcassets */,
 				F8B699BD2DA17DCB00D105F9 /* LaunchScreen.storyboard */,
 				F8B699C02DA17DCB00D105F9 /* Info.plist */,
+				F80ACA2C2DA29F39004B1033 /* TabBarController.swift */,
+				F80ACA2E2DA29FA2004B1033 /* MainScreenVC.swift */,
+				F80ACA302DA29FB3004B1033 /* SearchScreenVC.swift */,
+				F80ACA322DA29FD0004B1033 /* ProfileScreenVC.swift */,
 			);
 			path = Flicksy;
 			sourceTree = "<group>";
@@ -135,6 +147,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B699B72DA17DC900D105F9 /* ViewController.swift in Sources */,
+				F80ACA2F2DA29FA2004B1033 /* MainScreenVC.swift in Sources */,
+				F80ACA312DA29FB3004B1033 /* SearchScreenVC.swift in Sources */,
+				F80ACA2D2DA29F39004B1033 /* TabBarController.swift in Sources */,
+				F80ACA332DA29FD0004B1033 /* ProfileScreenVC.swift in Sources */,
 				F8B699B32DA17DC900D105F9 /* AppDelegate.swift in Sources */,
 				F8B699B52DA17DC900D105F9 /* SceneDelegate.swift in Sources */,
 			);
