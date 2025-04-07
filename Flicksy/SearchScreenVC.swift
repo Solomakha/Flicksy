@@ -65,7 +65,7 @@ class SearchScreenVC: UIViewController {
         
         searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск..."
+        searchController.searchBar.placeholder = "Search..."
         searchController.searchResultsUpdater = self
         
         navigationItem.searchController = searchController
@@ -76,6 +76,8 @@ class SearchScreenVC: UIViewController {
         
         searchResultTable.delegate = self
         searchResultTable.dataSource = self
+//        searchResultTable.estimatedRowHeight = 220
+//        searchResultTable.rowHeight = UITableView.automaticDimension
         
         addConstraints()
     }
@@ -107,12 +109,8 @@ extension SearchScreenVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchTableViewCell
         let movie = searchResults[indexPath.row]
-        
         cell.backgroundColor = .clear
-        cell.configure(homeTeam: movie.title)
-        
-        //cell.configure(homeTeam: "Real Madrid", awayTeam: "Barselona", homeTeamImage: "real", awayTeamImage: "barsa", time: "19:00", date: "23.03", stadium: "Estadio Nacional de Fútbol", city: "Managua")
-        
+        cell.configure(filmTitle: movie.title, filmRelease: String("\(movie.releaseDate.prefix(4)) year"), filmPopularity: String("★ \(movie.popularity)"))
         return cell
     }
     
@@ -120,7 +118,7 @@ extension SearchScreenVC: UITableViewDelegate, UITableViewDataSource {
         
         
         let toFavorite = UIContextualAction(style: .destructive, title: "") { (_, _, completionHandler) in
-            print("Добавление в избранное \(indexPath.row)")
+            print("Added to favorite \(indexPath.row)")
             completionHandler(true)
         }
         toFavorite.backgroundColor = .white

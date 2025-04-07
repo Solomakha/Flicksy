@@ -1,8 +1,8 @@
 import UIKit
 
 class SearchTableViewCell: UITableViewCell {
-
-    private let matchView: UIView = {
+    
+    private let searchResultsView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         //change view.backgroundColor
@@ -15,102 +15,56 @@ class SearchTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var containerStackView: UIStackView = {
+    private func setupContainer(imageView: UIImageView, descriptionStackView: UIStackView) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [imageView, descriptionStackView])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.alignment = .center
+        return stackView
+    }
+    
+    private let movieImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.layer.cornerRadius = 10
+        iv.layer.masksToBounds = true
+        iv.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        iv.contentMode = .scaleAspectFit
+        return iv
+    }()
+    
+    private lazy var movieDetailsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 12
-        stackView.alignment = .center
+        stackView.spacing = 5
+        stackView.alignment = .leading
+        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    private lazy var matchStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 12
-        stackView.alignment = .center
-        stackView.distribution = .equalCentering
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private func homeTeamStackView(imageView: UIImageView, titleLabel: UILabel) -> UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, imageView])
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.alignment = .center
-        return stackView
-    }
-    
-    private func awayTeamStackView(imageView: UIImageView, titleLabel: UILabel) -> UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.alignment = .center
-        return stackView
-    }
-    
-    private let homeCommandImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.widthAnchor.constraint(equalToConstant: 45).isActive = true
-        iv.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        iv.contentMode = .scaleAspectFit
-        return iv
-    }()
-    
-    private let homeCommandTitle: UILabel = {
+    private let movieTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        label.textColor = .white
-        label.textAlignment = .right
-        return label
-    }()
-    
-    private let awayCommandImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.widthAnchor.constraint(equalToConstant: 45).isActive = true
-        iv.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        iv.contentMode = .scaleAspectFit
-        return iv
-    }()
-    
-    private let awayCommandTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textColor = .white
         label.textAlignment = .left
         return label
     }()
     
-    private lazy var centerDataStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [timeLabel, dateLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    private let timeLabel: UILabel = {
+    private let movieRelease: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textColor = .white
+        label.textAlignment = .left
         return label
     }()
     
-    private let dateLabel: UILabel = {
+    private let moviePopularity: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label.textColor = UIColor(white: 1, alpha: 0.6)
-        return label
-    }()
-    
-    private let stadiumLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(white: 1, alpha: 0.7)
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
     }()
     
@@ -119,29 +73,28 @@ class SearchTableViewCell: UITableViewCell {
         selectionStyle = .none
         contentView.backgroundColor = .clear
         
-        contentView.addSubview(matchView)
-        matchView.addSubview(containerStackView)
+        contentView.addSubview(searchResultsView)
         
-        let homeStack = homeTeamStackView(imageView: homeCommandImageView, titleLabel: homeCommandTitle)
-        let awayStack = awayTeamStackView(imageView: awayCommandImageView, titleLabel: awayCommandTitle)
+        movieDetailsStackView.addArrangedSubview(movieTitle)
+        movieDetailsStackView.addArrangedSubview(movieRelease)
+        movieDetailsStackView.addArrangedSubview(moviePopularity)
         
-        matchStackView.addArrangedSubview(homeStack)
-        matchStackView.addArrangedSubview(centerDataStackView)
-        matchStackView.addArrangedSubview(awayStack)
+        let homeStack = setupContainer(imageView: movieImageView, descriptionStackView: movieDetailsStackView)
+        homeStack.translatesAutoresizingMaskIntoConstraints = false
         
-        containerStackView.addArrangedSubview(matchStackView)
-        containerStackView.addArrangedSubview(stadiumLabel)
+        searchResultsView.addSubview(homeStack)
         
         NSLayoutConstraint.activate([
-            matchView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            matchView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            matchView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            matchView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             
-            containerStackView.topAnchor.constraint(equalTo: matchView.topAnchor, constant: 12),
-            containerStackView.bottomAnchor.constraint(equalTo: matchView.bottomAnchor, constant: -12),
-            containerStackView.leadingAnchor.constraint(equalTo: matchView.leadingAnchor, constant: 16),
-            containerStackView.trailingAnchor.constraint(equalTo: matchView.trailingAnchor, constant: -16),
+            homeStack.topAnchor.constraint(equalTo: searchResultsView.topAnchor, constant: 10),
+            homeStack.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor, constant: -10),
+            homeStack.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor, constant: 10),
+            homeStack.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor, constant: -10),
+            
+            searchResultsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            searchResultsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            searchResultsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            searchResultsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
     }
     
@@ -149,14 +102,10 @@ class SearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(homeTeam: String) {
-        homeCommandTitle.text = homeTeam
-//        awayCommandTitle.text = awayTeam
-//        homeCommandImageView.image = UIImage(named: homeTeamImage)
-//        awayCommandImageView.image = UIImage(named: awayTeamImage)
-//        timeLabel.text = time
-//        dateLabel.text = date
-//        stadiumLabel.text = "\(stadium), \(city)"
+    func configure(filmTitle: String, filmRelease: String, filmPopularity: String) {
+        movieTitle.text = filmTitle
+        movieRelease.text = filmRelease
+        moviePopularity.text = filmPopularity
     }
-
+    
 }
