@@ -8,27 +8,42 @@ class SearchScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
-        
-        
     }
     
     private func performSearch(query: String) {
-        guard !query.isEmpty else {
-            searchResults = []
-            searchResultTable.reloadData()
-            return
-        }
-        
         MovieService.shared.searchMovies(query: query) { [weak self ] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let movies):
+                    self?.mainLabel.isHidden = true
+                    self?.searchResultTable.isHidden = false
                     self?.searchResults = movies
                     self?.searchResultTable.reloadData()
+                    
+                    if movies.isEmpty {
+                        self?.showNoResultsMessage()
+                    } else {
+                        self?.warningView.isHidden = true
+                    }
                 case .failure(let error):
                     print("❌ Ошибка: \(error.localizedDescription)")
+                    self?.showNoResultsMessage()
                 }
+            }
+        }
+    }
+    
+    func showNoResultsMessage() {
+        warningView.alpha = 0
+        warningView.isHidden = false
+        UIView.animate(withDuration: 0.3) {
+            self.warningView.alpha = 1
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            UIView.animate(withDuration: 0.3) {
+                self.warningView.alpha = 0
+            } completion: { _ in
+                self.warningView.isHidden = true
             }
         }
     }
@@ -59,9 +74,47 @@ class SearchScreenVC: UIViewController {
         return searchResultTable
     }()
     
+    private let warningView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray
+        view.layer.cornerRadius = 25
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.15
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 8
+        view.layer.masksToBounds = false
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.isHidden = true
+        return view
+    }()
+    
+    private let warningLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Nothing found"
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let mainLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Search movies"
+        label.textColor = .lightGray
+        label.textAlignment = .center
+        return label
+    }()
+    
     func setupView() {
         view.backgroundColor = .white
         view.addSubview(searchResultTable)
+        view.addSubview(warningView)
+        warningView.addSubview(warningLabel)
+        view.addSubview(mainLabel)
         
         searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
@@ -76,8 +129,7 @@ class SearchScreenVC: UIViewController {
         
         searchResultTable.delegate = self
         searchResultTable.dataSource = self
-//        searchResultTable.estimatedRowHeight = 220
-//        searchResultTable.rowHeight = UITableView.automaticDimension
+        searchResultTable.isHidden = true
         
         addConstraints()
     }
@@ -90,6 +142,20 @@ class SearchScreenVC: UIViewController {
             searchResultTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchResultTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            warningLabel.topAnchor.constraint(equalTo: warningView.topAnchor, constant: 10),
+            warningLabel.bottomAnchor.constraint(equalTo: warningView.bottomAnchor, constant: -10),
+            warningLabel.leadingAnchor.constraint(equalTo: warningView.leadingAnchor, constant: 15),
+            warningLabel.trailingAnchor.constraint(equalTo: warningView.trailingAnchor, constant: -15),
+            
+            warningView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            warningView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            warningView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
+            warningView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
+            
+            
         ])
     }
 }
@@ -97,6 +163,14 @@ class SearchScreenVC: UIViewController {
 extension SearchScreenVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let query = searchController.searchBar.text ?? ""
+        
+        guard query.count >= 5 else {
+            searchResults = []
+            searchResultTable.reloadData()
+            warningView.isHidden = true
+            return
+        }
+        
         performSearch(query: query)
     }
 }
