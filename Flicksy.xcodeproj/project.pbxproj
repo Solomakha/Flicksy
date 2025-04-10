@@ -20,6 +20,7 @@
 		F8B699B72DA17DC900D105F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B699B62DA17DC900D105F9 /* ViewController.swift */; };
 		F8B699BC2DA17DCB00D105F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8B699BB2DA17DCB00D105F9 /* Assets.xcassets */; };
 		F8B699BF2DA17DCB00D105F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B699BD2DA17DCB00D105F9 /* LaunchScreen.storyboard */; };
+		F8DB9E802DA838D50072F909 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = F8DB9E7F2DA838D50072F909 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8DB9E802DA838D50072F909 /* SDWebImage in Frameworks */,
 				F886892A2DA2D5420048F2BF /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +107,7 @@
 			name = Flicksy;
 			packageProductDependencies = (
 				F88689292DA2D5420048F2BF /* Alamofire */,
+				F8DB9E7F2DA838D50072F909 /* SDWebImage */,
 			);
 			productName = Flicksy;
 			productReference = F8B699AF2DA17DC900D105F9 /* Flicksy.app */;
@@ -136,6 +139,7 @@
 			mainGroup = F8B699A62DA17DC900D105F9;
 			packageReferences = (
 				F88689282DA2D5420048F2BF /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F8DB9E7E2DA838D50072F909 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = F8B699B02DA17DC900D105F9 /* Products */;
 			projectDirPath = "";
@@ -397,6 +401,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F8DB9E7E2DA838D50072F909 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.9.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -404,6 +416,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F88689282DA2D5420048F2BF /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F8DB9E7F2DA838D50072F909 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F8DB9E7E2DA838D50072F909 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 class SearchTableViewCell: UITableViewCell {
     
@@ -28,9 +29,9 @@ class SearchTableViewCell: UITableViewCell {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
-        iv.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        iv.widthAnchor.constraint(equalToConstant: 100).isActive = true
         iv.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
     
@@ -102,10 +103,12 @@ class SearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(filmTitle: String, filmRelease: String, filmPopularity: String) {
+    func configure(filmTitle: String, filmRelease: String, filmPopularity: String, poster: String) {
         movieTitle.text = filmTitle
         movieRelease.text = filmRelease
         moviePopularity.text = filmPopularity
+        let baseURL = "https://image.tmdb.org/t/p/w500"
+        movieImageView.sd_setImage(with: URL(string: "\(baseURL)\(poster)"))
     }
     
 }

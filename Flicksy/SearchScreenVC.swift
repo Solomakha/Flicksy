@@ -164,7 +164,7 @@ extension SearchScreenVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let query = searchController.searchBar.text ?? ""
         
-        guard query.count >= 5 else {
+        guard query.count >= 4 else {
             searchResults = []
             searchResultTable.reloadData()
             warningView.isHidden = true
@@ -184,7 +184,7 @@ extension SearchScreenVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchTableViewCell
         let movie = searchResults[indexPath.row]
         cell.backgroundColor = .clear
-        cell.configure(filmTitle: movie.title, filmRelease: String("\(movie.releaseDate.prefix(4)) year"), filmPopularity: String("★ \(movie.popularity)"))
+        cell.configure(filmTitle: movie.title, filmRelease: String("\(movie.releaseDate.prefix(4)) year"), filmPopularity: String("★ \(movie.popularity)"), poster: movie.posterPath)
         return cell
     }
     
